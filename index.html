@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>StudyFlow — Controle de Estudos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="brand">
+        <div class="brand-mark">S</div>
+
+        <div>
+          <strong>StudyFlow</strong>
+          <span>Controle de estudos</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+
+        <button class="nav-item active" data-view="dashboard">
+          <span class="nav-icon">⌂</span>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-view="settings">
+          <span class="nav-icon">⚙</span>
+          <span>Configurações</span>
+        </button>
+
+      </nav>
+
+      <div class="sidebar-footer">
+        <span>Dados salvos localmente</span>
+        <span class="status-dot"></span>
+      </div>
+
+    </aside>
+
+
+    <!-- CONTEÚDO -->
+    <main class="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+
+        <button
+          class="mobile-menu"
+          id="mobileMenu"
+          aria-label="Abrir menu">
+          ☰
+        </button>
+
+        <div>
+
+          <p class="eyebrow" id="pageEyebrow">
+            VISÃO GERAL
+          </p>
+
+          <h1 id="pageTitle">
+            Dashboard
+          </h1>
+
+        </div>
+
+        <div class="top-actions">
+
+          <button
+            class="icon-btn"
+            id="goSettings"
+            title="Configurações">
+            ⚙
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <!-- ========================= -->
+      <!-- DASHBOARD -->
+      <!-- ========================= -->
+
+      <section
+        class="view active"
+        id="dashboardView">
+
+        <!-- DASHBOARD VAZIO -->
+        <div
+          class="empty-state hidden"
+          id="dashboardEmpty">
+
+          <div class="empty-icon">
+            ◎
+          </div>
+
+          <h2>
+            Seu curso ainda não foi configurado
+          </h2>
+
+          <p>
+            Comece criando o nome do curso, o prazo e sua estrutura
+            de módulos, disciplinas e aulas.
+          </p>
+
+          <button
+            class="primary-btn"
+            id="emptySettings">
+            Configurar meu curso
+          </button>
+
+        </div>
+
+
+        <!-- DASHBOARD COM CONTEÚDO -->
+        <div id="dashboardContent">
+
+          <!-- CURSO -->
+          <div class="course-header card">
+
+            <div>
+
+              <span class="label">
+                CURSO
+              </span>
+
+              <h2 id="courseName">
+                Meu curso
+              </h2>
+
+              <p id="deadlineText">
+                Defina o prazo do curso nas configurações.
+              </p>
+
+            </div>
+
+
+            <div class="course-progress">
+
+              <div class="progress-ring">
+
+                <span id="coursePercent">
+                  0%
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- CARDS -->
+          <div class="stats-grid">
+
+            <article class="stat-card card">
+
+              <span class="stat-label">
+                PROGRESSO DO CURSO
+              </span>
+
+              <strong id="statProgress">
+                0%
+              </strong>
+
+              <span
+                class="stat-detail"
+                id="statProgressDetail">
+                0 de 0 aulas
+              </span>
+
+            </article>
+
+
+            <article class="stat-card card">
+
+              <span class="stat-label">
+                AULAS RESTANTES
+              </span>
+
+              <strong id="statRemaining">
+                0
+              </strong>
+
+              <span class="stat-detail">
+                para concluir o curso
+              </span>
+
+            </article>
+
+
+            <article class="stat-card card">
+
+              <span class="stat-label">
+                PRAZO RESTANTE
+              </span>
+
+              <strong id="statDays">
+                —
+              </strong>
+
+              <span
+                class="stat-detail"
+                id="statDaysDetail">
+                defina uma data
+              </span>
+
+            </article>
+
+
+            <article class="stat-card card">
+
+              <span class="stat-label">
+                RITMO NECESSÁRIO
+              </span>
+
+              <strong id="statPace">
+                —
+              </strong>
+
+              <span class="stat-detail">
+                aulas por dia
+              </span>
+
+            </article>
+
+          </div>
+
+
+          <!-- GRID -->
+          <div class="dashboard-grid">
+
+
+            <!-- MÓDULOS -->
+            <section class="card section-card">
+
+              <div class="section-heading">
+
+                <div>
+
+                  <span class="label">
+                    ESTRUTURA
+                  </span>
+
+                  <h3>
+                    Progresso por módulo
+                  </h3>
+
+                </div>
+
+                <button
+                  class="text-btn"
+                  id="manageCourse">
+                  Gerenciar curso →
+                </button>
+
+              </div>
+
+              <div
+                id="moduleProgressList"
+                class="module-list">
+              </div>
+
+            </section>
+
+
+            <!-- PRÓXIMAS AULAS -->
+            <section class="card section-card">
+
+              <div class="section-heading">
+
+                <div>
+
+                  <span class="label">
+                    PRÓXIMAS
+                  </span>
+
+                  <h3>
+                    Próximas aulas
+                  </h3>
+
+                </div>
+
+              </div>
+
+              <div
+                id="nextLessons"
+                class="lesson-list">
+              </div>
+
+            </section>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ========================= -->
+      <!-- CONFIGURAÇÕES -->
+      <!-- ========================= -->
+
+      <section
+        class="view"
+        id="settingsView">
+
+        <div class="settings-layout">
+
+
+          <!-- CONFIGURAÇÃO PRINCIPAL -->
+          <section class="card settings-main">
+
+            <div class="section-heading">
+
+              <div>
+
+                <span class="label">
+                  CURSO
+                </span>
+
+                <h2>
+                  Configuração do curso
+                </h2>
+
+                <p>
+                  Defina as informações principais do seu curso.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <!-- DADOS DO CURSO -->
+            <div class="form-grid">
+
+              <label class="field">
+
+                <span>
+                  Nome do curso
+                </span>
+
+                <input
+                  id="courseInput"
+                  type="text"
+                  placeholder="Ex.: Análise e Desenvolvimento de Sistemas">
+
+              </label>
+
+
+              <label class="field">
+
+                <span>
+                  Data de início
+                </span>
+
+                <input
+                  id="startDateInput"
+                  type="date">
+
+              </label>
+
+
+              <label class="field">
+
+                <span>
+                  Prazo de conclusão
+                </span>
+
+                <input
+                  id="deadlineInput"
+                  type="date">
+
+              </label>
+
+            </div>
+
+
+            <button
+              class="primary-btn"
+              id="saveCourse">
+              Salvar informações
+            </button>
+
+
+            <div class="divider"></div>
+
+
+            <!-- ESTRUTURA -->
+            <div class="section-heading compact">
+
+              <div>
+
+                <span class="label">
+                  CONTEÚDO
+                </span>
+
+                <h2>
+                  Estrutura do curso
+                </h2>
+
+                <p>
+                  Organize módulos, disciplinas e aulas.
+                </p>
+
+              </div>
+
+
+              <button
+                class="primary-btn small"
+                id="addModule">
+                + Novo módulo
+              </button>
+
+            </div>
+
+
+            <div
+              id="structureEditor"
+              class="structure-editor">
+            </div>
+
+          </section>
+
+
+          <!-- AJUDA -->
+          <aside class="card help-card">
+
+            <span class="label">
+              COMO FUNCIONA
+            </span>
+
+            <h3>
+              Organize seu curso em três níveis
+            </h3>
+
+
+            <div class="hierarchy">
+
+              <div>
+
+                <b>
+                  01
+                </b>
+
+                <span>
+
+                  <strong>
+                    Módulo
+                  </strong>
+
+                  Ex.: Semestre 1
+
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <b>
+                  02
+                </b>
+
+                <span>
+
+                  <strong>
+                    Disciplina
+                  </strong>
+
+                  Ex.: Programação
+
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <b>
+                  03
+                </b>
+
+                <span>
+
+                  <strong>
+                    Aula
+                  </strong>
+
+                  Ex.: Introdução a Java
+
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <p class="help-note">
+              O progresso é calculado automaticamente a partir
+              das aulas concluídas.
+            </p>
+
+          </aside>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- TOAST -->
+  <div
+    class="toast"
+    id="toast">
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
